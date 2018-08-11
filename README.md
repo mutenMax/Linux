@@ -3,7 +3,7 @@ mutualAuth.sh
 
 Tomcat – Mutual authentication over SSL
 
-Steps to enable HTTPS and mutual authentication
+Steps to enable HTTPS in Tomcat and Configure Mutual authentication
 
 
 
@@ -13,14 +13,30 @@ Mutual authentication requires that both the server and the client prove their r
 
 In a web-based mutual authentication process, communication can occur only if the client and the server trust each other’s digital certificates. 
 
-mutualAuth.sh script, here, will generate a server and the client self signed certificate. It will then import the client certificate in server store for server to trust this client. 
+mutualAuth.sh script, here, will generate a server and the client self signed digital certificate and will authenticate the client to the server. 
 
-In the end it will generate a XML snippet which can be copied to the Tomcat server.xml. 
-
-This will then enable Tomcat for SSL and will trust a client which has imported the above client certificate.
+After script runs successfully, it will show a XML connector string which you need to add to your Tomcat's server.xml file to enable HTTPS. 
 
 
-This is mainly for development puposes.
+It is mainly for development puposes.
+
+Steps to enable HTTPS on Tomcat and Enable Mutual authentication : 
+1. Download the script. 
+2. Move the file to the location where you want to keep your certificates for e.g. : ~.cert
+3. Go to a Terminal/ ssh client
+```cd ~/.cert```
+4. Make the script executable 
+```chmod +x mutualAuth,sh```
+5. Run the sript
+```./certificate```
+6. Enter your server store/ key password
+7. Enter your client store/ key password
+8. Say "yes" when it asks to import the certificate on to the server keystore.
+9. Add/ Modify XML connector string in your Tomacat server.xml to enable HTTPS with mutual authentication. 
+
+
+10. If you check the directory now (```ls -lart```), It should have genearetd certificates.
+Import the client certificate in your browser.
 
 
 
