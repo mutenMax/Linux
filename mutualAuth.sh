@@ -12,7 +12,7 @@ keytool -genkey -v -alias serverKey \
 -keyalg RSA \
 -validity 3650 \
 -keystore server.keystore \
--dname "CN=localhost, OU=Proteus Team, O=ORG, L=London, ST=UK, C=IT" \
+-dname "CN=localhost, OU=Dev Team, O=ORG, L=London, ST=UK, C=IT" \
 -storepass $serverPasswd \
 -keypass $serverPasswd
 if [ $? -ne 0 ]; then
@@ -32,7 +32,7 @@ keytool -genkey -v -alias clientKey \
 -validity 3650 \
 -storetype PKCS12 \
 -keystore clientStore.p12 \
--dname "CN=REST_TEST_CERT, EMAILADDRESS=test@test.com, OU=Proteus Team, O=ORG, L=London, ST=UK, C=IT" \
+-dname "CN=TEST_CERT, EMAILADDRESS=test@test.com, OU=Proteus Team, O=ORG, L=London, ST=UK, C=IT" \
 -storepass $clientPasswd \
 -keypass $clientPasswd
 
@@ -44,10 +44,11 @@ keytool -export -alias clientKey -keystore clientStore.p12 -storetype PKCS12 -st
 echo "Importing Client certicate onto Server store..."
 keytool -import -v -file clientKey.cer -keystore server.keystore -storepass $serverPasswd
 
-echo -e "Please enter your network/root password.."
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain clientKey.cer
+#This will import the generated client certificate to keychain (for Mac)
+#echo -e "Please enter your network/root password.."
+#sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain clientKey.cer
 
-#echo -e "\n****** Steps to enable HTTPS and mutual authentication ******"
+echo -e "\n****** Steps to enable HTTPS and mutual authentication ******"
 echo -e "\n1. Add/ replace below connection config in your tomcat server.xml.\n"
 cat << httpsConnector
   <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
@@ -57,5 +58,5 @@ cat << httpsConnector
        clientAuth="true" sslProtocol="TLS" />
 httpsConnector
 
-#echo -e "\n2. Import \"`pwd`/clientKey.cer\" in your browser or keychain.\n"
+echo -e "\n2. Import \"`pwd`/clientKey.cer\" in your browser or keychain.\n"
 exit
