@@ -28,7 +28,7 @@ Steps to enable HTTPS on Tomcat and Enable Mutual authentication :
 4. Make the script executable 
 ```chmod +x mutualAuth,sh```
 5. Run the sript
-```./certificate```
+```./mutualAuth.sh```
 6. Enter your server store/ key password
 7. Enter your client store/ key password
 8. Say "yes" when it asks to import the certificate on to the server keystore.
