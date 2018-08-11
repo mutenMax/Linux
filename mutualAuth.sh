@@ -32,7 +32,7 @@ keytool -genkey -v -alias clientKey \
 -validity 3650 \
 -storetype PKCS12 \
 -keystore clientStore.p12 \
--dname "CN=TEST_CERT, EMAILADDRESS=test@test.com, OU=Proteus Team, O=ORG, L=London, ST=UK, C=IT" \
+-dname "CN=TEST_CERT, EMAILADDRESS=test@test.com, OU=Dev Team, O=ORG, L=London, ST=UK, C=IT" \
 -storepass $clientPasswd \
 -keypass $clientPasswd
 
